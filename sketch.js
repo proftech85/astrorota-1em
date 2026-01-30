@@ -186,15 +186,61 @@ function drawPhase1() {
   textAlign(LEFT, TOP);
   textSize(14);
 
-  const goal = `MISSÃO 1 (MU): Acople na doca exatamente em T = ${p1.tTarget}s.
-Distância até a doca: ${p1.dist} m (1 px = 1 m).
-Modelo: s(t) = s0 + v·t  (aqui s0=0). Escolha v.`;
+  // --- TEXTO NOVO (Missão 1 mais clara) ---
+const title = `MISSÃO 1 — ACOPLAMENTO CONTROLADO (Movimento Uniforme)`;
 
-  text(goal, 40, H - 128);
+const objective =
+  `🎯 OBJETIVO: escolher uma velocidade para que a nave chegue na DOCA ` +
+  `exatamente quando o tempo T terminar.`;
+
+const data =
+  `📌 DADOS:\n` +
+  `• Tempo do sistema: T = ${p1.tTarget} s\n` +
+  `• Distância até a doca: ${p1.dist} m  (1 px = 1 m)\n` +
+  `• Posição inicial: s0 = 0 m\n`;
+
+const howTo =
+  `🎮 COMO FAZER:\n` +
+  `1) Use ← → para ajustar a velocidade v\n` +
+  `2) Clique em "TESTAR v"\n` +
+  `3) Quando o tempo acabar, veja se a nave parou na linha da doca\n` +
+  `4) Se errar, ajuste v e teste de novo\n`;
+
+const success =
+  `✅ VOCÊ VENCE SE: ao final do tempo, a nave parar bem perto da linha da doca.`;
+
+const hint =
+  `💡 DICA: no MU, s = v·t (aqui s0 = 0). Então uma boa estimativa é v ≈ distância / T.`;
+
+// desenhar em linhas (mais legível)
+textAlign(LEFT, TOP);
+textSize(14);
+fill(235);
+
+let xText = 40;
+let yText = H - 128;
+
+text(title, xText, yText); yText += 20;
+fill(210);
+text(objective, xText, yText); yText += 22;
+
+fill(235);
+text(data, xText, yText); yText += 56;
+
+text(howTo, xText, yText); yText += 74;
+
+fill(220);
+text(success, xText, yText); yText += 22;
+
+fill(180);
+text(hint, xText, yText);
+// --- FIM DO TEXTO NOVO ---
+;
 
   // slider simples (teclas)
   fill(220);
-  text(`v = ${p1.v.toFixed(0)} m/s  (use ← →)`, 40, H - 74);
+ text(`Controle: ajuste v = ${p1.v.toFixed(0)} m/s com ← →`, 40, H - 64);
+
 
   // botões
   const bx = W - 260, by = H - 105, bw = 220, bh = 44;
@@ -661,3 +707,4 @@ function keyPressed() {
     if (keyCode === RIGHT_ARROW) p4.vGuess = min(30, p4.vGuess + 1);
   }
 }
+
